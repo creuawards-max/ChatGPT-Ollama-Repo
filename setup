@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+echo "================================="
+echo " ChatGPT Ollama Repo Installer"
+echo " Full Version (Llama3.1 ~4.9GB)"
+echo "================================="
+
+# Check Ollama
+if ! command -v ollama >/dev/null 2>&1; then
+    echo "❌ Ollama is not installed!"
+    echo "Install it first: https://ollama.com"
+    exit 1
+fi
+
+echo "✅ Ollama detected"
+
+echo "📄 Creating Dockerfile..."
+
+cat <<EOF > Dockerfile
+FROM llama3.1
+
+SYSTEM """
+You are ChatGPT, a helpful AI assistant.
+You help with coding, Linux, Docker, scripting,
+and general questions.
+
+Be friendly, clear, and give working examples.
+"""
+
+PARAMETER temperature 0.7
+PARAMETER num_ctx 4096
+PARAMETER top_p 0.9
+PARAMETER repeat_penalty 1.1
+EOF
+
+echo "📥 Downloading model..."
+ollama pull llama3.1
+
+echo "⚙️ Creating model..."
+ollama create chatgpt:llama3.1 -f Dockerfile
+
+echo "================================="
+echo "✅ Installation complete!"
+echo "Run with:"
+echo "ollama run chatgpt:llama3.1"
+echo "================================="
