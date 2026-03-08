@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+echo "================================="
+echo " ChatGPT Ollama Repo Installer"
+echo " Mini Version (TinyLlama ~637MB)"
+echo "================================="
+
+# Check Ollama
+if ! command -v ollama >/dev/null 2>&1; then
+    echo "❌ Ollama is not installed!"
+    echo "Install it first: https://ollama.com"
+    exit 1
+fi
+
+echo "✅ Ollama detected"
+
+echo "📄 Creating Dockerfile..."
+
+cat <<EOF > Dockerfile
+FROM tinyllama
+
+SYSTEM """
+You are ChatGPT Mini, a lightweight AI assistant.
+You help with coding, Linux, and general questions.
+
+Be short, clear, and helpful.
+"""
+
+PARAMETER temperature 0.7
+PARAMETER num_ctx 2048
+PARAMETER top_p 0.9
+PARAMETER repeat_penalty 1.1
+EOF
+
+echo "📥 Downloading model..."
+ollama pull tinyllama
+
+echo "⚙️ Creating model..."
+ollama create chatgpt:tinyllama -f Dockerfile
+
+echo "================================="
+echo "✅ Mini installation complete!"
+echo "Run with:"
+echo "ollama run chatgpt:tinyllama"
+echo "================================="
