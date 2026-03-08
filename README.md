@@ -11,5 +11,4 @@ I Preffer More Executing The Command: ``./setup-mini`` That Uses 250MB Avaliable
 # Finishing
 If Installation Is Sucsess, Run: ``ollama create chatgpt:llama3.1 -f Dockerfile``, Mini Version: ``ollama create chatgpt:tinyllama -f Dockerfile``
 # Creators
-[ItsPeebleTime](https://youtube.com/ItsPeebleTime)
-[ItsPeebleTime Official Page](https://linktr.ee/ItsPeebleTimeCoding)
+Maked By Me! ([ItsPeebleTime](https://linktr.ee/ItsPeebleTimeCoding))
